@@ -1,0 +1,169 @@
+body {
+    width: 21cm;
+    height: 29.7cm;
+    border: 1px solid #ddd;
+    margin: 0 auto;
+    font-family: $font-family;
+    padding: 0.75cm 0 0;
+    display: flex;
+    flex-direction: column;
+}
+ page {
+    background: white;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    position: relative;
+}
+page[size="A4"] {
+    width: 21cm;
+    height: 29.7cm;
+}
+
+@page {
+    size: 21cm 29.7cm;
+    margin: 0mm;
+}
+.title {
+    font-size: 1cm;
+    text-align: center;
+    text-transform: uppercase;
+}
+.subtitle {
+    font-size: 0.5cm;
+    text-align: center;
+}
+.about-me {
+  text-align: center;
+  font-size: 0.35cm;
+  margin: 0.3cm 0.2cm 0;
+}
+.wrapper {
+  display: flex;
+  height: 100%;
+  margin-top: 0.45cm;
+}
+.left-pane {
+  width: 30%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 100%;
+  background: $left-pane-color;
+  color: white;
+  padding: 0 0.3cm 0.5cm;
+  h3 {
+    font-weight: 600;
+    font-size: 0.4cm;
+    margin-bottom: 0.15cm;
+    padding-bottom: 0.1cm;
+    border-bottom: 1px solid white;
+  }
+  section {
+    margin-top: 0.5cm;
+  }
+  p, a {
+    font-size: 0.3cm;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+.contact-details-list {
+  > li {
+    margin-top: 0.3cm;
+    > a {
+      display: flex;
+      align-items: center;
+      > svg {
+        display: block;
+      }
+      > p {
+        margin-left: 0.3cm;
+      }
+    }
+  }
+}
+.skills-list {
+  > li {
+    margin-top: 0.4cm;
+    display: flex;
+    align-items: center;
+    > p {
+      flex-grow: 1;
+      font-size: 0.35cm;
+    }
+    > ul {
+      display: flex;
+      gap: 0.2cm;
+      > li {
+        width: 12px;
+        height: 12px;
+        border: 2px solid white;
+        border-radius: 50%;
+        &.filled {
+          background: white;
+        }
+      }
+    }
+  }
+}
+.right-pane {
+  color: black;
+  flex-grow: 1;
+  padding: 0 0.6cm 0;
+  h3 {
+    font-weight: 600;
+    font-size: 0.4cm;
+    margin-bottom: 0.15cm;
+    padding-bottom: 0.1cm;
+    border-bottom: 1px solid black;
+  }
+  section {
+    margin-bottom: 0.5cm;
+    p {
+      font-size: 0.35cm;
+    }
+  }
+}
+.outer-list {
+  > li {
+    border-bottom: 1px dashed;
+    margin-bottom: 0.3cm;
+    padding-bottom: 0.35cm;
+    &:last-child {
+      border: none;
+      padding-bottom: 0;
+    }
+  }
+}
+.list-header {
+  h4, h5 {
+    font-size: 0.35cm;
+    font-weight: bold;
+  }
+  h5 {
+    font-style: italic;
+    margin-left: 0.3cm;
+    > span {
+      font-weight: 400;
+    }
+  }
+}
+.list-header-sub {
+  margin-top: 0.2cm;
+  padding-left: 0.4cm;
+}
+.list-header-sub-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.1cm;
+  > p {
+    font-style: italic;
+  }
+}
+.inner-list {
+  list-style-type: disc;
+  padding-left: 0.5cm;
+  margin-left: 0.3cm;
+}
