@@ -118,7 +118,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       inject: true,
       hash: false,
-      title: 'My Resume',
+      title: 'Ishu Madan | Full stack developer',
       // filename: path.resolve(__dirname, './dist/'),
       template: path.resolve(__dirname, './src/index.html'),
       favicon: path.resolve(environment.paths.source, 'images', 'favicon.ico'),

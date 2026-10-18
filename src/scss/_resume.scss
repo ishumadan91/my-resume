@@ -1,14 +1,21 @@
 body {
     width: 21cm;
-    height: 29.7cm;
+    min-height: 29.7cm;
     border: 1px solid #ddd;
     margin: 0 auto;
     font-family: $font-family;
+    // Ligatures (ff, ffi) can extract as garbage characters in some PDF/ATS parsers
+    font-variant-ligatures: none;
     padding: 0.75cm 0 0;
     display: flex;
     flex-direction: column;
+    @media print {
+      height: auto;
+      border: 0;
+      padding-top: 0;
+    }
 }
- page {
+page {
     background: white;
     display: block;
     margin: 0 auto;
@@ -22,21 +29,52 @@ page[size="A4"] {
 
 @page {
     size: 21cm 29.7cm;
-    margin: 0mm;
+    // Top/bottom margin so a second page doesn't start at the paper edge
+    margin: 1cm 0;
+}
+@media print {
+    // Keep a bullet whole, and a heading with what follows it
+    // Keep a short list (one job, Open Source, Certifications) on one page
+    .inner-list, .inner-list li {
+        break-inside: avoid;
+    }
+    h3, h4 {
+        break-after: avoid;
+    }
 }
 .title {
     font-size: 1cm;
     text-align: center;
     text-transform: uppercase;
+    .single-column & {
+      text-align: left;
+      padding-left: $horizontal-padding;
+      font-size: 0.5cm;
+      margin-bottom: 0.1cm;
+    }
 }
 .subtitle {
     font-size: 0.5cm;
     text-align: center;
+    .single-column & {
+      text-align: left;
+      padding-left: $horizontal-padding;
+      font-size: $body-font-size;
+    }
 }
 .about-me {
   text-align: center;
-  font-size: 0.35cm;
+  font-size: $body-font-size;
   margin: 0.3cm 0.2cm 0;
+}
+.contact-details {
+  font-size: $body-font-size;
+  padding: 0 $horizontal-padding;
+}
+// One link color, so links the browser remembers as visited don't print purple
+.contact-details a:link, .contact-details a:visited,
+.right-pane a:link, .right-pane a:visited {
+  color: #0645ad;
 }
 .wrapper {
   display: flex;
@@ -91,7 +129,7 @@ page[size="A4"] {
     align-items: center;
     > p {
       flex-grow: 1;
-      font-size: 0.35cm;
+      font-size: $body-font-size;
     }
     > ul {
       display: flex;
@@ -111,7 +149,7 @@ page[size="A4"] {
 .right-pane {
   color: black;
   flex-grow: 1;
-  padding: 0 0.6cm 0;
+  padding: 0 $horizontal-padding 0;
   h3 {
     font-weight: 600;
     font-size: 0.4cm;
@@ -120,9 +158,9 @@ page[size="A4"] {
     border-bottom: 1px solid black;
   }
   section {
-    margin-bottom: 0.5cm;
+    margin-bottom: 0.7cm;
     p {
-      font-size: 0.35cm;
+      font-size: $body-font-size;
     }
   }
 }
@@ -136,11 +174,22 @@ page[size="A4"] {
       padding-bottom: 0;
     }
   }
+  &.simple {
+    > li {
+      border: none;
+      padding-bottom: 0;
+      margin-bottom: 0.1cm;
+    }
+  }
 }
 .list-header {
   h4, h5 {
-    font-size: 0.35cm;
+    font-size: $body-font-size;
     font-weight: bold;
+    i {
+      font-style: italic;
+      font-weight: normal;
+    }
   }
   h5 {
     font-style: italic;
@@ -166,4 +215,49 @@ page[size="A4"] {
   list-style-type: disc;
   padding-left: 0.5cm;
   margin-left: 0.3cm;
+}
+.format-toggle {
+  position: fixed;
+  display: block;
+  background: white;
+  border: 1px solid black;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  &:hover {
+    background: #f0f0f0;
+  }
+  @media print {
+    display: none;
+  }
+}
+
+.resume-container {
+  transition: all 0.3s ease;
+  &.single-column {
+    .wrapper {
+      .left-pane {
+        display: none;
+      }
+      .right-pane {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 auto;
+      }
+    }
+    .hide-single-column {
+      display: none;
+    }
+  }
+  &.multi-column {
+    .hide-multi-column {
+      display: none;
+    }
+  }
 }
